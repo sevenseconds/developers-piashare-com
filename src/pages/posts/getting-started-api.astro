@@ -1,0 +1,80 @@
+---
+import MicroBlogLayout from '../../layouts/MicroBlogLayout.astro';
+---
+
+<MicroBlogLayout title="Getting Started with the PiaShare API">
+	<article class="max-w-4xl mx-auto">
+		<header class="mb-8">
+			<h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+				Getting Started with the PiaShare API
+			</h1>
+			
+			<div class="flex items-center gap-4 text-lg sm:text-xl text-gray-500 dark:text-gray-400 mb-6">
+				<span>Sarah Chen</span>
+				<span>Dec 15, 2024</span>
+				<span>5 min read</span>
+			</div>
+
+			<div class="flex flex-wrap gap-2">
+				<span class="px-4 py-2 rounded-full text-base font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">API</span>
+				<span class="px-4 py-2 rounded-full text-base font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Tutorial</span>
+				<span class="px-4 py-2 rounded-full text-base font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Getting Started</span>
+			</div>
+		</header>
+
+		<div class="mb-8">
+			<img 
+				src="https://via.placeholder.com/800x400" 
+				alt="Getting Started with PiaShare API" 
+				class="w-full h-64 object-cover rounded-lg"
+			/>
+		</div>
+
+		<div class="text-gray-900 dark:text-gray-100">
+			<p class="text-2xl sm:text-3xl text-gray-600 dark:text-gray-300 mb-10 leading-relaxed">
+				Learn how to integrate PiaShare's powerful API into your applications with our comprehensive guide and examples.
+			</p>
+
+			<h2 class="text-3xl sm:text-4xl font-bold mb-6">Prerequisites</h2>
+			<p class="text-lg sm:text-xl mb-6 leading-relaxed">Before you start, make sure you have:</p>
+			<ul class="list-disc pl-8 mb-8 text-lg sm:text-xl space-y-2">
+				<li>A PiaShare developer account</li>
+				<li>Basic knowledge of REST APIs</li>
+				<li>Your preferred programming language</li>
+			</ul>
+
+			<h2 class="text-3xl sm:text-4xl font-bold mb-6">Authentication</h2>
+			<p class="text-lg sm:text-xl mb-6 leading-relaxed">PiaShare API uses API keys for authentication:</p>
+
+			<pre class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mb-8 text-base sm:text-lg overflow-x-auto"><code>curl -H "Authorization: Bearer YOUR_API_KEY" https://api.piashare.com/v1/user/profile</code></pre>
+
+			<h2 class="text-3xl sm:text-4xl font-bold mb-6">Basic Endpoints</h2>
+			
+			<h3 class="text-2xl sm:text-3xl font-bold mb-4">Get User Profile</h3>
+			<pre class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mb-6 text-base sm:text-lg overflow-x-auto"><code>GET https://api.piashare.com/v1/user/profile</code></pre>
+
+			<h3 class="text-2xl sm:text-3xl font-bold mb-4">Create a New Project</h3>
+			<pre class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mb-4 text-base sm:text-lg overflow-x-auto"><code>POST https://api.piashare.com/v1/projects</code></pre>
+			<pre class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg mb-8 text-base sm:text-lg overflow-x-auto"><code>Content-Type: application/json
+
+&#123;
+  "name": "My Project",
+  "description": "Sample project"
+&#125;</code></pre>
+
+			<h2 class="text-3xl sm:text-4xl font-bold mb-6">Next Steps</h2>
+			<p class="text-lg sm:text-xl mb-6 leading-relaxed">Now you can:</p>
+			<ul class="list-disc pl-8 mb-8 text-lg sm:text-xl space-y-2">
+				<li>Explore the full API documentation</li>
+				<li>Check out our SDK libraries</li>
+				<li>Join our developer community</li>
+			</ul>
+
+			<p class="text-xl sm:text-2xl font-medium">Happy coding! 🚀</p>
+		</div>
+
+		<div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+			<a href="/" class="text-blue-600 dark:text-blue-400">← Back to all posts</a>
+		</div>
+	</article>
+</MicroBlogLayout>
