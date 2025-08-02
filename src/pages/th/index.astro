@@ -1,0 +1,45 @@
+---
+import MicroBlogLayout from '../../layouts/MicroBlogLayout.astro';
+import Post from '../../components/Post.astro';
+---
+
+<MicroBlogLayout title="PiaShare นักพัฒนา">
+	<h1 class="text-3xl sm:text-4xl font-bold mb-8 text-gray-900 dark:text-white">ข่าวสารเทคโนโลยี</h1>
+	<div class="space-y-4">
+		<Post
+			title="เริ่มต้นใช้งาน PiaShare API อย่างง่าย"
+			image="https://via.placeholder.com/800x400"
+			tags={["API", "คู่มือ", "เริ่มต้น"]}
+			date="15 ธ.ค. 2567"
+			readTime="อ่าน 5 นาที"
+		/>
+		<Post
+			title="ฟีเจอร์ใหม่: การทำงานร่วมกันแบบเรียลไทม์"
+			subtitle="แนะนำฟีเจอร์การทำงานร่วมกันแบบเรียลไทม์ที่ช่วยให้ผู้ใช้หลายคนสามารถทำงานร่วมกันในโปรเจกต์เดียวกันได้อย่างราบรื่น"
+			tags={["ฟีเจอร์", "ทำงานร่วมกัน", "เรียลไทม์"]}
+			date="10 ธ.ค. 2567"
+			readTime="อ่าน 3 นาที"
+		/>
+		<Post
+			title="PiaShare SDK สำหรับ iOS และ Android"
+			image="https://via.placeholder.com/800x400"
+			tags={["SDK", "มือถือ", "iOS", "Android"]}
+			date="5 ธ.ค. 2567"
+			readTime="อ่าน 7 นาที"
+		/>
+		<Post
+			title="การยืนยันตัวตนและความปลอดภัย"
+			subtitle="แนวทางและรูปแบบความปลอดภัยที่สำคัญสำหรับการสร้างแอปพลิเคชันที่ปลอดภัยด้วย PiaShare"
+			tags={["ความปลอดภัย", "การยืนยันตัวตน", "แนวทางปฏิบัติ"]}
+			date="28 พ.ย. 2567"
+			readTime="อ่าน 8 นาที"
+		/>
+		<Post
+			title="ตัวอย่าง GraphQL API ใหม่"
+			image="https://via.placeholder.com/800x400"
+			tags={["GraphQL", "API", "ตัวอย่าง", "ประสิทธิภาพ"]}
+			date="20 พ.ย. 2567"
+			readTime="อ่าน 6 นาที"
+		/>
+	</div>
+</MicroBlogLayout>

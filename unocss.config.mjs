@@ -8,4 +8,9 @@ export default defineConfig({
     }),
     presetTypography(),
   ],
+  theme: {
+    fontFamily: {
+      'mitr': ['Mitr', 'sans-serif'],
+    },
+  },
 })
