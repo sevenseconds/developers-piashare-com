@@ -11,6 +11,7 @@
   "dependencies": {
     "@unocss/astro": "^66.4.0",
     "@unocss/reset": "^66.4.0",
-    "astro": "^5.12.8"
+    "astro": "^5.12.8",
+    "unocss": "^66.4.0"
   }
 }

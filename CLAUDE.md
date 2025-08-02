@@ -1,5 +1,4 @@
-
-# Gemini Project Brief
+# Claude Project Brief
 
 ## Project Description
 This project is a landing page for developers of PiaShare, a platform for sharing and discovering creative content. The landing page will showcase the features and benefits of PiaShare for developers, and provide resources for getting started with the PiaShare API.
@@ -15,13 +14,16 @@ The project is structured as a standard Astro project.
 - `src/components` - Contains the reusable components used in the pages.
 - `src/layouts` - Contains the layout components for the pages.
 - `public` - Contains the static assets of the landing page.
-- `unocss.config.ts` - The configuration file for UnoCSS.
+- `unocss.config.mjs` - The configuration file for UnoCSS.
 - `astro.config.mjs` - The configuration file for Astro.
 
-## What Matters for Gemini CLI
-When the context exceeds, it is important for Gemini CLI to have access to the following information to continue work:
+## What Matters for Claude Code
+When the context exceeds, it is important for Claude Code to have access to the following information to continue work:
 - The project description and frameworks used.
 - The project structure.
-- The contents of `unocss.config.ts` and `astro.config.mjs`.
+- The contents of `unocss.config.mjs` and `astro.config.mjs`.
 - The contents of the `src` directory, especially the pages, components, and layouts.
 - Read the `TODO.md` file to see the pending tasks or current status.
+
+## Memories
+- Check TODO.md for the next tasks or current status

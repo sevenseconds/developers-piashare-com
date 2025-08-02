@@ -1,0 +1,70 @@
+
+<div class="fi-theme-toggle">
+    <button
+        type="button"
+        class="block fi-theme-toggle-button dark:hidden"
+        title="Switch to light mode"
+    >
+        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.106a.75.75 0 0 1 0 1.06l-1.591 1.59a.75.75 0 1 1-1.06-1.06l1.59-1.59a.75.75 0 0 1 1.061 0ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5h2.25a.75.75 0 0 1 .75.75ZM17.894 17.894a.75.75 0 0 1-1.06-1.06l1.59-1.591a.75.75 0 1 1 1.06 1.06l-1.59 1.59ZM12 18a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.894 17.894a.75.75 0 0 1-1.061-1.06l-1.59-1.591a.75.75 0 1 1-1.06 1.06l1.59 1.59ZM4.5 12a.75.75 0 0 1-.75.75H1.5a.75.75 0 0 1 0-1.5h2.25a.75.75 0 0 1 .75.75ZM6.106 6.106a.75.75 0 0 1 1.06 0l1.591 1.59a.75.75 0 0 1-1.06 1.06l-1.59-1.591a.75.75 0 0 1 0-1.06Z" />
+        </svg>
+    </button>
+
+    <button
+        type="button"
+        class="hidden fi-theme-toggle-button dark:block"
+        title="Switch to dark mode"
+    >
+        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69a.75.75 0 0 1 .981.981A10.503 10.503 0 0 1 18 19.5a10.5 10.5 0 0 1-10.5-10.5c0-1.31.25-2.566.7-3.735a.75.75 0 0 1 .819-.162Z" clip-rule="evenodd" />
+        </svg>
+    </button>
+</div>
+
+<script>
+    const getInitialTheme = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+            return localStorage.getItem('theme')
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return 'dark'
+        }
+        return 'light'
+    }
+
+    const applyTheme = (theme) => {
+        if (theme === 'light') {
+            document.documentElement.classList.remove('dark')
+        } else {
+            document.documentElement.classList.add('dark')
+        }
+    }
+
+    // Initialize theme
+    const initialTheme = getInitialTheme()
+    applyTheme(initialTheme)
+
+    // Listen for system theme changes only if user hasn't set a preference
+    if (typeof localStorage !== 'undefined' && !localStorage.getItem('theme')) {
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+        mediaQuery.addEventListener('change', (e) => {
+            // Only apply system theme if user hasn't manually set one
+            if (!localStorage.getItem('theme')) {
+                applyTheme(e.matches ? 'dark' : 'light')
+            }
+        })
+    }
+
+    const handleToggleClick = () => {
+        const element = document.documentElement
+        element.classList.toggle("dark")
+
+        const isDark = element.classList.contains("dark")
+        const newTheme = isDark ? "dark" : "light"
+        
+        // Save user's explicit choice
+        localStorage.setItem("theme", newTheme)
+    }
+
+    document.querySelector('.fi-theme-toggle')?.addEventListener("click", handleToggleClick)
+</script>

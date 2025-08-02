@@ -1,0 +1,91 @@
+
+---
+export interface Props {
+	title: string;
+	subtitle?: string;
+	image?: string;
+	tags?: string[];
+	date?: string;
+	readTime?: string;
+}
+
+const { title, subtitle, image, tags = [], date, readTime } = Astro.props;
+---
+
+<div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 sm:p-6 mb-4 hover:shadow-lg dark:hover:shadow-gray-800/50 transition-shadow bg-white dark:bg-gray-800">
+	<div class="flex items-start justify-between gap-4">
+		<!-- Leading content -->
+		<div class="flex items-start gap-4 flex-1">
+			{image && (
+				<div class="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 relative">
+					<img 
+						src={image} 
+						alt={title} 
+						class="w-full h-full object-cover rounded-lg"
+						onError="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+					/>
+					<div class="absolute inset-0 bg-gray-200 dark:bg-gray-700 rounded-lg items-center justify-center hidden">
+						<svg class="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+						</svg>
+					</div>
+				</div>
+			)}
+			
+			<div class="flex-1 min-w-0">
+				<!-- Title and subtitle -->
+				<div class="mb-3">
+					<h2 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-1 line-clamp-2">
+						{title}
+					</h2>
+					{subtitle && !image && (
+						<p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+							{subtitle}
+						</p>
+					)}
+				</div>
+
+				<!-- Tags -->
+				{tags.length > 0 && (
+					<div class="flex flex-wrap gap-2 mb-3">
+						{tags.map(tag => (
+							<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+								{tag}
+							</span>
+						))}
+					</div>
+				)}
+
+				<!-- Meta info -->
+				<div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+					{date && (
+						<span class="flex items-center gap-1">
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+							</svg>
+							{date}
+						</span>
+					)}
+					{readTime && (
+						<span class="flex items-center gap-1">
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+							{readTime}
+						</span>
+					)}
+				</div>
+			</div>
+		</div>
+
+		<!-- Trailing content (Read more button) -->
+		<div class="flex-shrink-0 flex items-center">
+			<button class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 transition-colors">
+				Read more
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+				</svg>
+			</button>
+		</div>
+	</div>
+</div>
