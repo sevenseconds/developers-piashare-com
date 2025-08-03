@@ -1,5 +1,6 @@
 
 ---
+
 export interface Props {
 	title: string;
 	subtitle?: string;
@@ -10,9 +11,15 @@ export interface Props {
 	author?: string;
 	href?: string;
 	showThumbnail?: boolean;
+	lang?: 'th' | 'en';
 }
 
-const { title, subtitle, image, tags = [], date, readTime, author, href = "#", showThumbnail = true } = Astro.props;
+const { title, subtitle, image, tags = [], date, readTime, author, href = "#", showThumbnail = true, lang } = Astro.props;
+
+// Determine current language from post lang or URL
+const url = Astro.url;
+const detectedLanguage = lang || (url.pathname.startsWith('/en/') ? 'en' : 'th');
+const basePath = detectedLanguage === 'en' ? '/en' : '';
 ---
 
 <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 sm:p-6 mb-4 hover:shadow-lg dark:hover:shadow-gray-800/50 transition-shadow bg-white dark:bg-gray-800">
@@ -86,11 +93,17 @@ const { title, subtitle, image, tags = [], date, readTime, author, href = "#", s
 				<!-- Tags -->
 				{tags.length > 0 && (
 					<div class="flex flex-wrap gap-2 sm:gap-2">
-						{tags.map(tag => (
-							<span class="inline-flex items-center px-2.5 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-								{tag}
-							</span>
-						))}
+						{tags.map(tag => {
+							const tagSlug = tag.toLowerCase().replace(/\s+/g, '-');
+							return (
+								<a 
+									href={`${basePath}/tags/${tagSlug}`}
+									class="inline-flex items-center px-2.5 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+								>
+									{tag}
+								</a>
+							);
+						})}
 					</div>
 				)}
 			</div>

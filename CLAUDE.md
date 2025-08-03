@@ -9,6 +9,8 @@ This project is a modern, multilingual micro-blogging platform for PiaShare deve
 - **Responsive Navigation**: Left sidebar adapts from full text to icons based on screen space availability
 - **Mobile Bottom Navigation**: Fixed bottom navigation bar on mobile devices with icons and labels
 - **Right Sidebar**: Always visible on desktop/tablet with recent posts and programming languages
+- **Tag System**: Language-separated tag pages with counters and clickable navigation
+- **TagSidebar**: Conditional right sidebar replacement showing tags with post counts on tag pages
 - **Dark/Light Theme**: Smart theme toggle with system preference detection and manual override
 - **Thai Typography**: Google Fonts Mitr for excellent Thai language rendering with large, mobile-friendly fonts
 - **Content-First Layout**: Subtle meta information that doesn't distract from the main content
@@ -29,11 +31,12 @@ This project is a modern, multilingual micro-blogging platform for PiaShare deve
 ```
 src/
 ├── components/
-│   ├── Post.astro           # Main blog post component with conditional thumbnails
+│   ├── Post.astro           # Main blog post component with conditional thumbnails and clickable tags
 │   ├── ThemeToggle.astro    # Dark/light theme switcher with persistence
 │   ├── LanguageSwitcher.astro # Thai/English language toggle (Thai first)
 │   ├── LeftSidebar.astro    # Responsive left navigation (full text/icons only)
 │   ├── RightSidebar.astro   # Right sidebar with recents and programming languages
+│   ├── TagSidebar.astro     # Tag sidebar with counters for tag pages
 │   └── MobileBottomNav.astro # Mobile bottom navigation bar
 ├── layouts/
 │   └── MicroBlogLayout.astro # Main layout with Twitter/X-like three-column structure
@@ -54,14 +57,18 @@ src/
 │   ├── index.astro          # Thai homepage (default, thumbnails hidden)
 │   ├── posts/
 │   │   └── [...slug].astro  # Dynamic Thai post pages
+│   ├── tags/
+│   │   └── [...slug].astro  # Dynamic Thai tag pages with TagSidebar
 │   ├── th/
 │   │   ├── index.astro      # Alternative Thai homepage
 │   │   └── posts/
 │   │       └── [...slug].astro  # Alternative Thai post routes
 │   └── en/
 │       ├── index.astro      # English homepage (thumbnails hidden)
-│       └── posts/
-│           └── [...slug].astro  # Dynamic English post pages
+│       ├── posts/
+│       │   └── [...slug].astro  # Dynamic English post pages
+│       └── tags/
+│           └── [...slug].astro  # Dynamic English tag pages with TagSidebar
 ├── astro.config.mjs         # Astro config with native i18n (Thai default)
 └── unocss.config.mjs        # UnoCSS config with Mitr font
 ```
@@ -69,12 +76,27 @@ src/
 ## Current Implementation Details
 
 ### Post Component (`src/components/Post.astro`)
-- **Props**: `title`, `subtitle?`, `image?`, `tags[]`, `date?`, `readTime?`, `author?`, `href?`, `showThumbnail?`
+- **Props**: `title`, `subtitle?`, `image?`, `tags[]`, `date?`, `readTime?`, `author?`, `href?`, `showThumbnail?`, `lang?`
 - **Layout**: Responsive flex layout (vertical on mobile, horizontal on desktop)
 - **Image Handling**: Left-positioned with fallback placeholders for broken images, conditional display via `showThumbnail`
 - **Meta Info**: Author, date, and read time positioned below title in muted styling
 - **Content Hierarchy**: Title → Meta → Subtitle → Tags → Subtle "Read more" link
-- **Conditional Display**: Thumbnails hidden on homepage (`showThumbnail={false}`), shown in individual posts
+- **Conditional Display**: Thumbnails hidden on homepage and tag pages (`showThumbnail={false}`), shown in individual posts
+- **Clickable Tags**: Tags link to language-appropriate tag pages (`/tags/xxx` for Thai, `/en/tags/xxx` for English)
+- **Language Detection**: Uses `lang` prop from post data to determine correct tag link paths
+
+### Tag System
+- **Language Separation**: Each language maintains its own set of tags and tag pages
+- **Tag Pages**: Dynamic routes generated for each unique tag per language
+  - Thai tags: `/tags/javascript`, `/tags/คู่มือติดตั้ง`
+  - English tags: `/en/tags/javascript`, `/en/tags/setup-guide`
+- **TagSidebar Component**: Replaces RightSidebar on tag pages
+  - Shows tags with post counts sorted by frequency
+  - Highlights currently active tag
+  - Language-specific tag filtering and display
+- **Clickable Tags**: All tags throughout the site are clickable and navigate to appropriate tag pages
+- **No Cross-Language Translation**: Uses Astro's default approach without custom translation mapping
+- **Automatic Generation**: Tag pages are automatically generated during build based on tags found in posts
 
 ### Twitter/X-like Layout System
 - **Three-Column Design**: Left navigation, main content, right sidebar
@@ -84,6 +106,7 @@ src/
   - **Large (xl+)**: Full left sidebar with text (256px), visible right sidebar (320px)
 - **Left Navigation**: Home, Tutorials, Tips with responsive icon/text display
 - **Right Sidebar**: Recent posts section and programming languages (JS, Python, TypeScript, Rust, Go)
+- **Conditional Right Sidebar**: TagSidebar replaces RightSidebar on tag pages (`showTagSidebar` prop)
 - **Mobile Navigation**: Fixed bottom bar with icon and text labels
 
 ### Theme System
@@ -122,12 +145,14 @@ When the context exceeds, it is important for Claude Code to have access to the 
 - The three-column responsive layout system with breakpoint logic
 - Left sidebar component with responsive text/icon display (`LeftSidebar.astro`)
 - Right sidebar component with recents and programming languages (`RightSidebar.astro`)
+- Tag sidebar component with counters and language filtering (`TagSidebar.astro`)
 - Mobile bottom navigation component (`MobileBottomNav.astro`)
 - The i18n setup with Thai as default language and content collections structure
 - The Post component interface and responsive design patterns with conditional thumbnails
+- Tag system implementation with language separation and clickable tags
 - Theme toggle implementation and state management
 - Content collections schema and markdown content organization
-- Dynamic routing patterns for both languages (`[...slug].astro` files)
+- Dynamic routing patterns for both languages and tag pages (`[...slug].astro` files)
 - Language switcher logic with Thai prioritization
 - The contents of `unocss.config.mjs` and `astro.config.mjs`
 - The contents of the `src` directory, especially components, layouts, content, and dynamic pages
@@ -135,8 +160,9 @@ When the context exceeds, it is important for Claude Code to have access to the 
 - Typography setup with Mitr font for Thai language support and mobile optimization
 - Individual post page structure with proper spacing for header controls
 - Conditional thumbnail display logic (`showThumbnail` prop usage)
-- Content collections configuration in `src/content.config.ts`
+- Content collections configuration in `src/content/config.ts`
 - Responsive layout margins and breakpoint system for three-column layout
+- Layout conditional logic for showing TagSidebar vs RightSidebar (`showTagSidebar` prop)
 
 ## Memories
 - Check TODO.md for the next tasks or current status

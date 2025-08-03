@@ -42,11 +42,17 @@ const { Content } = await render(post);
 			</div>
 
 			<div class="flex flex-wrap gap-2">
-				{post.data.tags.map((tag) => (
-					<span class="px-4 py-2 rounded-full text-base font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-						{tag}
-					</span>
-				))}
+				{post.data.tags.map((tag) => {
+					const tagSlug = tag.toLowerCase().replace(/\s+/g, '-');
+					return (
+						<a 
+							href={`/en/tags/${tagSlug}`}
+							class="px-4 py-2 rounded-full text-base font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+						>
+							{tag}
+						</a>
+					);
+				})}
 			</div>
 		</header>
 

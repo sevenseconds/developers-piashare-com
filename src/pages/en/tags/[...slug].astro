@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import MicroBlogLayout from '../../../layouts/MicroBlogLayout.astro';
+import Post from '../../../components/Post.astro';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+  const englishPosts = allPosts.filter(post => post.data.lang === 'en');
+  const allTags = englishPosts.flatMap(post => post.data.tags);
+  const uniqueTags = [...new Set(allTags)];
+  
+  const paths = [];
+  
+  // Generate English tag pages
+  for (const tag of uniqueTags) {
+    paths.push({
+      params: { slug: tag.toLowerCase().replace(/\s+/g, '-') },
+      props: { tag, language: 'en' as const }
+    });
+  }
+  
+  return paths;
+}
+
+const { tag, language } = Astro.props;
+const allPosts = await getCollection('blog');
+
+// Filter posts by tag and language
+const tagPosts = allPosts.filter(post => {
+  return post.data.tags.includes(tag) && post.data.lang === language;
+}).sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const pageTitle = language === 'th' ? `โพสต์ที่มีแท็ก "${tag}"` : `Posts tagged "${tag}"`;
+---
+
+<MicroBlogLayout title={pageTitle} showTagSidebar={true} currentTag={tag}>
+  <div class="space-y-6">
+    <div class="border-b border-gray-200 dark:border-gray-800 pb-4">
+      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-2">
+        {tag}
+      </h1>
+      <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-400">
+        {language === 'th' ? `พบ ${tagPosts.length} โพสต์` : `${tagPosts.length} posts found`}
+      </p>
+    </div>
+
+    <div class="space-y-6">
+      {tagPosts.map((post) => (
+        <Post
+          title={post.data.title}
+          subtitle={post.data.subtitle}
+          image={post.data.image}
+          tags={post.data.tags}
+          date={post.data.date.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+          })}
+          readTime={post.data.readTime}
+          author={post.data.author}
+          href={`/en/posts/${post.id.replace('en/', '')}`}
+          showThumbnail={false}
+          lang={post.data.lang}
+        />
+      ))}
+    </div>
+
+    {tagPosts.length === 0 && (
+      <div class="text-center py-12">
+        <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-400">
+          {language === 'th' ? 'ไม่พบโพสต์ที่มีแท็กนี้' : 'No posts found with this tag'}
+        </p>
+      </div>
+    )}
+  </div>
+</MicroBlogLayout>

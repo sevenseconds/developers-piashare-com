@@ -16,7 +16,7 @@ const sortedPosts = blogPosts.sort((a, b) =>
 
 <MicroBlogLayout title="PiaShare Developers">
 	<h1 class="text-3xl sm:text-4xl font-bold mb-8 text-gray-900 dark:text-white">Tech Updates</h1>
-	<div class="space-y-4">
+	<div class="space-y-6">
 		{sortedPosts.map((post) => (
 			<Post
 				title={post.data.title}
@@ -32,6 +32,7 @@ const sortedPosts = blogPosts.sort((a, b) =>
 				readTime={post.data.readTime}
 				href={`/en/posts/${post.id.replace('en/', '')}`}
 				showThumbnail={false}
+				lang={post.data.lang}
 			/>
 		))}
 	</div>

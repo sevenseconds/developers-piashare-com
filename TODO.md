@@ -10,6 +10,7 @@ This project is a modern, multilingual micro-blogging platform for PiaShare deve
 - **Responsive Navigation:** Left sidebar adapts from full text to icons based on available space.
 - **Mobile Bottom Navigation:** Fixed bottom navigation bar for mobile devices with icons and labels.
 - **Right Sidebar Always Visible:** Programming languages and recent posts shown on all non-mobile screens.
+- **Tag System:** Language-separated tag pages with counters and conditional TagSidebar.
 - **Modern List Tile Design:** Clean card-based layout optimized for content consumption.
 - **Multilingual Support:** Full i18n with Thai as default language and English support using Astro's native routing.
 - **Smart Theme System:** Dark/light theme toggle with system preference detection and persistence.
@@ -71,6 +72,16 @@ This project is a modern, multilingual micro-blogging platform for PiaShare deve
     - [x] Enhance code block styling for better mobile responsiveness
     - [x] Convert inline shell commands to proper code blocks for scrollability
 
+- [x] **Tag System Implementation:**
+    - [x] Create TagSidebar component with language-specific tag counters
+    - [x] Implement dynamic tag pages for both Thai and English
+    - [x] Add clickable tags throughout the site with proper language routing
+    - [x] Configure conditional sidebar replacement (TagSidebar vs RightSidebar)
+    - [x] Remove custom tag translation system in favor of Astro's default approach
+    - [x] Fix Post component language detection and tag link generation
+    - [x] Ensure consistent layout and styling between homepage and tag pages
+    - [x] Hide thumbnails on both homepage and tag pages for consistent design
+
 - [x] **Twitter/X-like Layout Implementation:**
     - [x] Create left sidebar component with navigation (Home, Tutorials, Tips)
     - [x] Implement responsive left sidebar (full text on xl+, icons only on lg-xl)
@@ -84,20 +95,21 @@ This project is a modern, multilingual micro-blogging platform for PiaShare deve
 
 ## Current State
 
-✅ **Project is Feature Complete with Twitter/X-like Layout and Advanced Content Management**
+✅ **Project is Feature Complete with Twitter/X-like Layout, Tag System, and Advanced Content Management**
 
 - **Twitter/X-like Layout:** Three-column responsive design with intelligent sidebar behavior
+- **Tag System:** Complete language-separated tag pages with counters and clickable navigation
 - **Responsive Navigation:** Left sidebar shows full text when space allows, icons when limited
 - **Mobile Experience:** Bottom navigation bar with proper spacing and touch targets
-- **Right Sidebar:** Always visible programming languages and recent posts on non-mobile
+- **Conditional Sidebars:** TagSidebar replaces RightSidebar on tag pages, maintaining consistent left navigation
 - **Core Functionality:** All major features implemented and working
 - **Responsive Design:** Optimized for all screen sizes with proper header spacing
 - **Multilingual:** Full Thai/English support with Thai as default language
 - **Theme System:** Smart dark/light toggle with persistence and Twitter/X-like contrast
 - **Typography:** Excellent Thai language rendering with Mitr font
 - **Content Collections:** Markdown-based content management with schema validation
-- **Dynamic Routing:** Automated page generation from markdown content
-- **Content Structure:** Professional blog layout with author, dates, tags
+- **Dynamic Routing:** Automated page generation from markdown content and tags
+- **Content Structure:** Professional blog layout with author, dates, clickable tags
 - **User Experience:** Content-focused design with Thai-prioritized language switching
 - **Comprehensive Tutorials:** Complete setup guides with table of contents
 - **Mobile Code Blocks:** Enhanced code formatting with proper scrollability and styling
@@ -107,11 +119,12 @@ This project is a modern, multilingual micro-blogging platform for PiaShare deve
 ```
 src/
 ├── components/
-│   ├── Post.astro              ✅ Feature-complete blog post component with conditional thumbnails
+│   ├── Post.astro              ✅ Feature-complete blog post component with clickable tags and conditional thumbnails
 │   ├── ThemeToggle.astro       ✅ Advanced theme switching with persistence
 │   ├── LanguageSwitcher.astro  ✅ i18n navigation component (Thai prioritized)
 │   ├── LeftSidebar.astro       ✅ Responsive left navigation (full text/icons, Twitter/X-like)
 │   ├── RightSidebar.astro      ✅ Right sidebar with recents and programming languages
+│   ├── TagSidebar.astro        ✅ Tag sidebar with counters and language filtering for tag pages
 │   └── MobileBottomNav.astro   ✅ Mobile bottom navigation bar with icons and labels
 ├── layouts/
 │   └── MicroBlogLayout.astro   ✅ Three-column Twitter/X-like layout with responsive sidebars
@@ -132,14 +145,18 @@ src/
 │   ├── index.astro             ✅ Thai homepage (default, thumbnails hidden)
 │   ├── posts/
 │   │   └── [...slug].astro     ✅ Dynamic Thai post pages with proper spacing
+│   ├── tags/
+│   │   └── [...slug].astro     ✅ Dynamic Thai tag pages with TagSidebar
 │   ├── th/
 │   │   ├── index.astro         ✅ Alternative Thai homepage
 │   │   └── posts/
 │   │       └── [...slug].astro ✅ Alternative Thai post routes
 │   └── en/
 │       ├── index.astro         ✅ English homepage (thumbnails hidden)
-│       └── posts/
-│           └── [...slug].astro ✅ Dynamic English post pages with proper spacing
+│       ├── posts/
+│       │   └── [...slug].astro ✅ Dynamic English post pages with proper spacing
+│       └── tags/
+│           └── [...slug].astro ✅ Dynamic English tag pages with TagSidebar
 ├── astro.config.mjs            ✅ Configured with native i18n (Thai default)
 ├── unocss.config.mjs           ✅ Configured with Mitr font support and line-clamp utilities
 ├── CLAUDE.md                   ✅ Updated project documentation with Twitter/X layout info
@@ -150,7 +167,7 @@ src/
 
 - [ ] **Advanced Features:**
     - [x] Individual blog post pages ✅ (completed with large mobile fonts)
-    - [ ] Tag filtering and search functionality
+    - [x] Tag filtering and search functionality ✅ (completed with tag pages and TagSidebar)
     - [ ] Author profile pages
     - [ ] RSS feed generation
     - [ ] More individual post content for both languages
@@ -178,8 +195,10 @@ src/
 - **Programming Languages:** Right sidebar showcases tech stack (JS, Python, TypeScript, Rust, Go)
 - **Content Hierarchy:** Visual design emphasizes content over navigation elements
 - **Typography Optimization:** Significantly increased font sizes for mobile and high DPI screens
-- **Conditional Thumbnails:** Thumbnails hidden on homepage but shown in individual posts
+- **Conditional Thumbnails:** Thumbnails hidden on homepage and tag pages, shown in individual posts
 - **Header Spacing:** Proper spacing added to prevent title overlap with controls
 - **Professional Tutorials:** Comprehensive guides with table of contents and accurate technical information
 - **Enhanced Code Blocks:** Mobile-responsive code styling with borders, padding, and scrollability
 - **Proper Command Formatting:** Shell commands converted from inline to scrollable code blocks
+- **Tag System:** Language-separated tag pages with automatic generation and conditional TagSidebar
+- **Clickable Tags:** All tags throughout the site link to appropriate language-specific tag pages
