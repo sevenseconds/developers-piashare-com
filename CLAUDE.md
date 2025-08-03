@@ -4,15 +4,17 @@
 This project is a modern, multilingual micro-blogging platform for PiaShare developers. It features a clean list-tile design similar to Twitter/X, with support for both Thai and English content. The platform showcases tech updates, tutorials, and developer resources with excellent typography and responsive design.
 
 ## Key Features
-- **Internationalization (i18n)**: Full support for Thai and English with separate routes (`/` for English, `/th/` for Thai)
+- **Internationalization (i18n)**: Full support for Thai and English with routes (`/` and `/th/` for Thai, `/en/` for English)
 - **Modern List Tile Design**: Card-based layout with optimized mobile responsiveness
 - **Dark/Light Theme**: Smart theme toggle with system preference detection and manual override
 - **Thai Typography**: Google Fonts Mitr for excellent Thai language rendering with large, mobile-friendly fonts
 - **Content-First Layout**: Subtle meta information that doesn't distract from the main content
 - **Responsive Images**: Placeholder fallbacks for broken images with conditional thumbnail display
-- **Language Switching**: Easy language toggle in the header
+- **Language Switching**: Easy language toggle in the header with Thai prioritized first
 - **Individual Post Pages**: Full-content post pages with enhanced typography for mobile readability
 - **Mobile-Optimized Typography**: Significantly increased font sizes for high DPI screens and mobile devices
+- **Content Collections**: Markdown-based content management with Astro's content layer API
+- **Dynamic Routing**: Automated page generation from markdown content with proper language separation
 
 ## Frameworks and Libraries
 - [Astro](https://astro.build/) - The web framework with built-in i18n support
@@ -26,18 +28,35 @@ src/
 ├── components/
 │   ├── Post.astro           # Main blog post component with conditional thumbnails
 │   ├── ThemeToggle.astro    # Dark/light theme switcher with persistence
-│   └── LanguageSwitcher.astro # Thai/English language toggle
+│   └── LanguageSwitcher.astro # Thai/English language toggle (Thai first)
 ├── layouts/
 │   └── MicroBlogLayout.astro # Main layout with theme and i18n support
+├── content/
+│   ├── config.ts            # Content collections configuration
+│   └── blog/
+│       ├── en/              # English markdown posts
+│       │   ├── getting-started-api.md
+│       │   ├── building-responsive-components.md
+│       │   ├── modern-javascript-features.md
+│       │   └── termux-ai-setup-guide.md
+│       └── th/              # Thai markdown posts
+│           ├── getting-started-api.md
+│           ├── building-responsive-components.md
+│           ├── modern-javascript-features.md
+│           └── termux-ai-setup-guide.md
 ├── pages/
-│   ├── index.astro          # English homepage (thumbnails hidden)
+│   ├── index.astro          # Thai homepage (default, thumbnails hidden)
 │   ├── posts/
-│   │   └── getting-started-api.astro  # Individual post with large fonts
-│   └── th/
-│       ├── index.astro      # Thai homepage (thumbnails hidden)
+│   │   └── [...slug].astro  # Dynamic Thai post pages
+│   ├── th/
+│   │   ├── index.astro      # Alternative Thai homepage
+│   │   └── posts/
+│   │       └── [...slug].astro  # Alternative Thai post routes
+│   └── en/
+│       ├── index.astro      # English homepage (thumbnails hidden)
 │       └── posts/
-│           └── getting-started-api.astro  # Thai post with large fonts
-├── astro.config.mjs         # Astro config with native i18n setup
+│           └── [...slug].astro  # Dynamic English post pages
+├── astro.config.mjs         # Astro config with native i18n (Thai default)
 └── unocss.config.mjs        # UnoCSS config with Mitr font
 ```
 
@@ -58,9 +77,17 @@ src/
 
 ### Internationalization
 - **Astro Native i18n**: File-based routing without custom translation utilities
-- **Route Structure**: `defaultLocale: 'en'`, `locales: ['en', 'th']`
-- **Content Management**: Separate `.astro` files for each language with localized content
-- **Individual Posts**: Both languages have corresponding post pages with proper linking
+- **Route Structure**: `defaultLocale: 'th'`, `locales: ['th', 'en']` (Thai as primary language)
+- **Content Management**: Markdown-based content collections with language separation
+- **Individual Posts**: Dynamic routing from content collections with proper language linking
+- **Language Switcher**: Thai prioritized first, intelligent URL mapping between languages
+
+### Content Collections
+- **Schema Validation**: Zod-based frontmatter validation for consistency
+- **Markdown Processing**: Astro's content layer API for rendering
+- **Language Separation**: Organized by language (`/en/` and `/th/` subdirectories)
+- **Dynamic Generation**: Pages automatically generated from markdown content
+- **Rich Metadata**: Title, subtitle, author, date, tags, description, read time
 
 ### Typography & Mobile Optimization
 - **Font Sizes**: Significantly increased for mobile and high DPI screens
@@ -74,15 +101,19 @@ src/
 ## What Matters for Claude Code
 When the context exceeds, it is important for Claude Code to have access to the following information to continue work:
 - The project description and current feature set
-- The i18n setup and language-specific content structure with individual post pages
+- The i18n setup with Thai as default language and content collections structure
 - The Post component interface and responsive design patterns with conditional thumbnails
 - Theme toggle implementation and state management
+- Content collections schema and markdown content organization
+- Dynamic routing patterns for both languages (`[...slug].astro` files)
+- Language switcher logic with Thai prioritization
 - The contents of `unocss.config.mjs` and `astro.config.mjs`
-- The contents of the `src` directory, especially components, layouts, and post pages
+- The contents of the `src` directory, especially components, layouts, content, and dynamic pages
 - Read the `TODO.md` file to see the pending tasks or current status
 - Typography setup with Mitr font for Thai language support and mobile optimization
-- Individual post page structure and enhanced font sizing for mobile readability
+- Individual post page structure with proper spacing for header controls
 - Conditional thumbnail display logic (`showThumbnail` prop usage)
+- Content collections configuration in `src/content.config.ts`
 
 ## Memories
 - Check TODO.md for the next tasks or current status

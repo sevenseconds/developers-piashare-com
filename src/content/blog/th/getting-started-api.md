@@ -2,7 +2,7 @@
 title: "เริ่มต้นใช้งาน PiaShare API"
 subtitle: "เรียนรู้วิธีการผสานรวม API ที่ทรงพลังของ PiaShare เข้ากับแอปพลิเคชันของคุณด้วยคู่มือและตัวอย่างที่ครบถ้วน"
 author: "สารา เฉิน"
-date: 2024-12-15
+date: 2025-08-03
 readTime: "5 นาที"
 tags: ["API", "บทเรียน", "เริ่มต้นใช้งาน"]
 image: "https://via.placeholder.com/800x400"

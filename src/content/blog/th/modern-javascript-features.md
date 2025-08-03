@@ -2,7 +2,7 @@
 title: "ฟีเจอร์ JavaScript สมัยใหม่ที่คุณควรรู้"
 subtitle: "สำรวจฟีเจอร์ JavaScript ล่าสุดที่จะปรับปรุงขั้นตอนการพัฒนาและคุณภาพโค้ดของคุณ"
 author: "มาเรีย โรดริเกซ"
-date: 2024-12-05
+date: 2025-08-03
 readTime: "6 นาที"
 tags: ["JavaScript", "ES2024", "เว็บสมัยใหม่"]
 image: "https://via.placeholder.com/800x400"

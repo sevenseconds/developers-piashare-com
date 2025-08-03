@@ -7,11 +7,13 @@ This project is a modern, multilingual micro-blogging platform for PiaShare deve
 
 **Key Achievements:**
 - **Modern List Tile Design:** Clean card-based layout optimized for content consumption.
-- **Multilingual Support:** Full i18n with Thai and English content using Astro's native routing.
+- **Multilingual Support:** Full i18n with Thai as default language and English support using Astro's native routing.
 - **Smart Theme System:** Dark/light theme toggle with system preference detection and persistence.
 - **Thai Typography:** Google Fonts Mitr for excellent Thai language rendering.
 - **Mobile-First Responsive:** Optimized layout that adapts from mobile to desktop.
 - **Content-Focused UX:** Subtle meta information that doesn't distract from main content.
+- **Content Collections:** Markdown-based content management with Astro's content layer API.
+- **Dynamic Routing:** Automated page generation from markdown content with proper language separation.
 - **Astro + UnoCSS:** Built with modern web technologies for optimal performance.
 
 ## Tasks Breakdown (Completed ✅)
@@ -54,18 +56,29 @@ This project is a modern, multilingual micro-blogging platform for PiaShare deve
     - [x] Remove thumbnails from front page while keeping them in individual posts
     - [x] Create individual post pages with full content and proper linking
     - [x] Increase font sizes significantly for better mobile readability
+    - [x] Migrate to content collections for markdown-based content management
+    - [x] Implement dynamic routing with `[...slug].astro` pages
+    - [x] Set Thai as default language with proper URL structure
+    - [x] Update language switcher to prioritize Thai first
+    - [x] Add comprehensive Termux + AI tools setup guide
+    - [x] Remove language flags from individual post headers
+    - [x] Add table of contents to tutorial content
+    - [x] Fix header spacing issues with post titles
 
 ## Current State
 
-✅ **Project is Feature Complete**
+✅ **Project is Feature Complete with Advanced Content Management**
 
 - **Core Functionality:** All major features implemented and working
-- **Responsive Design:** Optimized for all screen sizes
-- **Multilingual:** Full Thai/English support with native Astro i18n
+- **Responsive Design:** Optimized for all screen sizes with proper header spacing
+- **Multilingual:** Full Thai/English support with Thai as default language
 - **Theme System:** Smart dark/light toggle with persistence
 - **Typography:** Excellent Thai language rendering with Mitr font
+- **Content Collections:** Markdown-based content management with schema validation
+- **Dynamic Routing:** Automated page generation from markdown content
 - **Content Structure:** Professional blog layout with author, dates, tags
-- **User Experience:** Content-focused design with subtle navigation elements
+- **User Experience:** Content-focused design with Thai-prioritized language switching
+- **Comprehensive Tutorials:** Complete setup guides with table of contents
 
 ## Project Structure
 
@@ -74,18 +87,35 @@ src/
 ├── components/
 │   ├── Post.astro              ✅ Feature-complete blog post component with conditional thumbnails
 │   ├── ThemeToggle.astro       ✅ Advanced theme switching with persistence
-│   └── LanguageSwitcher.astro  ✅ i18n navigation component
+│   └── LanguageSwitcher.astro  ✅ i18n navigation component (Thai prioritized)
 ├── layouts/
 │   └── MicroBlogLayout.astro   ✅ Main layout with theme and i18n integrations
+├── content/
+│   ├── config.ts               ✅ Content collections configuration with schema validation
+│   └── blog/
+│       ├── en/                 ✅ English markdown posts (4 articles)
+│       │   ├── getting-started-api.md
+│       │   ├── building-responsive-components.md
+│       │   ├── modern-javascript-features.md
+│       │   └── termux-ai-setup-guide.md (comprehensive tutorial)
+│       └── th/                 ✅ Thai markdown posts (4 articles)
+│           ├── getting-started-api.md
+│           ├── building-responsive-components.md
+│           ├── modern-javascript-features.md
+│           └── termux-ai-setup-guide.md (comprehensive tutorial)
 ├── pages/
-│   ├── index.astro             ✅ English homepage (thumbnails hidden)
+│   ├── index.astro             ✅ Thai homepage (default, thumbnails hidden)
 │   ├── posts/
-│   │   └── getting-started-api.astro  ✅ Individual post with large fonts
-│   └── th/
-│       ├── index.astro         ✅ Thai homepage (thumbnails hidden)
+│   │   └── [...slug].astro     ✅ Dynamic Thai post pages with proper spacing
+│   ├── th/
+│   │   ├── index.astro         ✅ Alternative Thai homepage
+│   │   └── posts/
+│   │       └── [...slug].astro ✅ Alternative Thai post routes
+│   └── en/
+│       ├── index.astro         ✅ English homepage (thumbnails hidden)
 │       └── posts/
-│           └── getting-started-api.astro  ✅ Thai post with large fonts
-├── astro.config.mjs            ✅ Configured with native i18n
+│           └── [...slug].astro ✅ Dynamic English post pages with proper spacing
+├── astro.config.mjs            ✅ Configured with native i18n (Thai default)
 ├── unocss.config.mjs           ✅ Configured with Mitr font support
 ├── CLAUDE.md                   ✅ Updated project documentation
 └── TODO.md                     ✅ Complete task tracking
@@ -110,11 +140,14 @@ src/
 
 ## Development Notes
 
-- **No Custom Utils Needed:** Using Astro's native i18n instead of custom translation utilities
-- **File-Based Content:** Each language version is a separate .astro file with localized content
+- **Content Collections:** Using Astro's content layer API with markdown and schema validation
+- **Dynamic Routing:** Automated page generation with `[...slug].astro` pattern
+- **Thai Default:** Thai language set as primary with proper URL structure
+- **Language Switching:** Intelligent URL mapping between Thai and English content
 - **Theme Persistence:** Uses localStorage with smart fallback to system preferences
 - **Mobile-First:** Responsive design prioritizes mobile experience with large fonts
 - **Content Hierarchy:** Visual design emphasizes content over navigation elements
 - **Typography Optimization:** Significantly increased font sizes for mobile and high DPI screens
 - **Conditional Thumbnails:** Thumbnails hidden on homepage but shown in individual posts
-- **Individual Post Pages:** Full content pages with enhanced readability
+- **Header Spacing:** Proper spacing added to prevent title overlap with controls
+- **Professional Tutorials:** Comprehensive guides with table of contents and accurate technical information
