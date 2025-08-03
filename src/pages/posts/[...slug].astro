@@ -1,0 +1,90 @@
+---
+import MicroBlogLayout from '../../layouts/MicroBlogLayout.astro';
+import { getCollection, getEntry, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection('blog', ({ data }) => {
+    return data.lang === 'th';
+  });
+
+  return blogPosts.map(post => ({
+    params: { 
+      slug: post.id.replace('th/', '') 
+    },
+    props: { 
+      post 
+    },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<MicroBlogLayout title={post.data.title}>
+	<article class="max-w-4xl mx-auto">
+		<!-- Add spacing for header controls -->
+		<div class="h-16 sm:h-20"></div>
+		
+		<header class="mb-8">
+			<!-- Language indicator -->
+			<div class="mb-4">
+				<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+					🇹🇭 ไทย
+				</span>
+			</div>
+			
+			<h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+				{post.data.title}
+			</h1>
+			
+			<div class="flex items-center gap-4 text-lg sm:text-xl text-gray-500 dark:text-gray-400 mb-6">
+				<span>{post.data.author}</span>
+				<span>{post.data.date.toLocaleDateString('th-TH', { 
+					year: 'numeric', 
+					month: 'short', 
+					day: 'numeric' 
+				})}</span>
+				<span>{post.data.readTime}</span>
+			</div>
+
+			<div class="flex flex-wrap gap-2">
+				{post.data.tags.map((tag) => (
+					<span class="px-4 py-2 rounded-full text-base font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+						{tag}
+					</span>
+				))}
+			</div>
+		</header>
+
+		{post.data.image && (
+			<div class="mb-8">
+				<img 
+					src={post.data.image} 
+					alt={post.data.title} 
+					class="w-full h-64 object-cover rounded-lg"
+				/>
+			</div>
+		)}
+
+		<div class="text-gray-900 dark:text-gray-100">
+			{post.data.subtitle && (
+				<p class="text-2xl sm:text-3xl text-gray-600 dark:text-gray-300 mb-10 leading-relaxed">
+					{post.data.subtitle}
+				</p>
+			)}
+
+			<div class="prose prose-lg sm:prose-xl dark:prose-invert max-w-none
+				prose-headings:text-gray-900 dark:prose-headings:text-white
+				prose-p:text-lg prose-p:sm:text-xl prose-p:leading-relaxed
+				prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800
+				prose-code:text-base prose-code:sm:text-lg">
+				<Content />
+			</div>
+		</div>
+
+		<div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+			<a href="/" class="text-blue-600 dark:text-blue-400">← กลับไปยังโพสต์ทั้งหมด</a>
+		</div>
+	</article>
+</MicroBlogLayout>

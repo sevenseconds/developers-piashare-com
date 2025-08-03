@@ -1,63 +1,38 @@
 ---
 import MicroBlogLayout from '../layouts/MicroBlogLayout.astro';
 import Post from '../components/Post.astro';
+import { getCollection } from 'astro:content';
+
+// Get Thai blog posts
+const blogPosts = await getCollection('blog', ({ data }) => {
+  return data.lang === 'th';
+});
+
+// Sort by date (newest first)
+const sortedPosts = blogPosts.sort((a, b) => 
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
 ---
 
-<MicroBlogLayout title="PiaShare Developers">
-	<h1 class="text-3xl sm:text-4xl font-bold mb-8 text-gray-900 dark:text-white">Tech Updates</h1>
+<MicroBlogLayout title="PiaShare นักพัฒนา">
+	<h1 class="text-3xl sm:text-4xl font-bold mb-8 text-gray-900 dark:text-white">ข่าวสารเทคโนโลยี</h1>
 	<div class="space-y-4">
-		<Post
-			title="Getting Started with the PiaShare API"
-			subtitle="Learn how to integrate PiaShare's powerful API into your applications with our comprehensive guide and examples."
-			image="https://via.placeholder.com/800x400"
-			tags={["API", "Tutorial", "Getting Started"]}
-			author="Sarah Chen"
-			date="Dec 15, 2024"
-			readTime="5 min read"
-			href="/posts/getting-started-api"
-			showThumbnail={false}
-		/>
-		<Post
-			title="New Feature: Real-time Collaboration"
-			subtitle="Introducing real-time collaboration features that allow multiple users to work together seamlessly on shared projects."
-			tags={["Feature", "Collaboration", "Real-time"]}
-			author="Alex Rodriguez"
-			date="Dec 10, 2024"
-			readTime="3 min read"
-			href="#"
-			showThumbnail={false}
-		/>
-		<Post
-			title="PiaShare SDKs for iOS and Android"
-			subtitle="Native mobile SDKs are now available, making it easier than ever to integrate PiaShare into your mobile applications."
-			image="https://via.placeholder.com/800x400"
-			tags={["SDK", "Mobile", "iOS", "Android"]}
-			author="Maya Patel"
-			date="Dec 5, 2024"
-			readTime="7 min read"
-			href="#"
-			showThumbnail={false}
-		/>
-		<Post
-			title="Authentication & Security Best Practices"
-			subtitle="Essential security guidelines and authentication patterns for building secure applications with PiaShare."
-			tags={["Security", "Authentication", "Best Practices"]}
-			author="David Kim"
-			date="Nov 28, 2024"
-			readTime="8 min read"
-			href="#"
-			showThumbnail={false}
-		/>
-		<Post
-			title="GraphQL API Preview"
-			subtitle="Get early access to our new GraphQL API endpoint with improved performance and flexible data fetching."
-			image="https://via.placeholder.com/800x400"
-			tags={["GraphQL", "API", "Preview", "Performance"]}
-			author="Emma Thompson"
-			date="Nov 20, 2024"
-			readTime="6 min read"
-			href="#"
-			showThumbnail={false}
-		/>
+		{sortedPosts.map((post) => (
+			<Post
+				title={post.data.title}
+				subtitle={post.data.subtitle}
+				image={post.data.image}
+				tags={post.data.tags}
+				author={post.data.author}
+				date={post.data.date.toLocaleDateString('th-TH', { 
+					year: 'numeric', 
+					month: 'short', 
+					day: 'numeric' 
+				})}
+				readTime={post.data.readTime}
+				href={`/posts/${post.id.replace('th/', '')}`}
+				showThumbnail={false}
+			/>
+		))}
 	</div>
 </MicroBlogLayout>

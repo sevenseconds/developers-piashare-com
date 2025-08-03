@@ -3,9 +3,9 @@ import MicroBlogLayout from '../../layouts/MicroBlogLayout.astro';
 import Post from '../../components/Post.astro';
 import { getCollection } from 'astro:content';
 
-// Get Thai blog posts
+// Get English blog posts
 const blogPosts = await getCollection('blog', ({ data }) => {
-  return data.lang === 'th';
+  return data.lang === 'en';
 });
 
 // Sort by date (newest first)
@@ -14,8 +14,8 @@ const sortedPosts = blogPosts.sort((a, b) =>
 );
 ---
 
-<MicroBlogLayout title="PiaShare นักพัฒนา">
-	<h1 class="text-3xl sm:text-4xl font-bold mb-8 text-gray-900 dark:text-white">ข่าวสารเทคโนโลยี</h1>
+<MicroBlogLayout title="PiaShare Developers">
+	<h1 class="text-3xl sm:text-4xl font-bold mb-8 text-gray-900 dark:text-white">Tech Updates</h1>
 	<div class="space-y-4">
 		{sortedPosts.map((post) => (
 			<Post
@@ -24,13 +24,13 @@ const sortedPosts = blogPosts.sort((a, b) =>
 				image={post.data.image}
 				tags={post.data.tags}
 				author={post.data.author}
-				date={post.data.date.toLocaleDateString('th-TH', { 
+				date={post.data.date.toLocaleDateString('en-US', { 
 					year: 'numeric', 
 					month: 'short', 
 					day: 'numeric' 
 				})}
 				readTime={post.data.readTime}
-				href={`/th/posts/${post.id.replace('th/', '')}`}
+				href={`/en/posts/${post.id.replace('en/', '')}`}
 				showThumbnail={false}
 			/>
 		))}

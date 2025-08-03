@@ -6,8 +6,8 @@ import unocss from '@unocss/astro';
 export default defineConfig({
   site: 'https://developers.piashare.com',
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'th'],
+    defaultLocale: 'th',
+    locales: ['th', 'en'],
     routing: {
       prefixDefaultLocale: false
     }

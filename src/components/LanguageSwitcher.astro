@@ -1,20 +1,40 @@
 ---
 const currentPath = Astro.url.pathname;
-const isThaiPage = currentPath.startsWith('/th');
+const isEnglishPage = currentPath.startsWith('/en');
+const isThaiPage = currentPath.startsWith('/th') || (!isEnglishPage);
+
+// Generate corresponding URLs
+let englishUrl = '/en/';
+let thaiUrl = '/th/';
+
+if (currentPath.startsWith('/th/posts/')) {
+  const slug = currentPath.replace('/th/posts/', '');
+  englishUrl = `/en/posts/${slug}`;
+} else if (currentPath.startsWith('/posts/')) {
+  const slug = currentPath.replace('/posts/', '');
+  englishUrl = `/en/posts/${slug}`;
+} else if (currentPath.startsWith('/en/posts/')) {
+  const slug = currentPath.replace('/en/posts/', '');
+  thaiUrl = `/th/posts/${slug}`;
+} else if (currentPath.startsWith('/en/')) {
+  thaiUrl = '/th/';
+} else if (currentPath === '/') {
+  thaiUrl = '/th/';
+}
 ---
 
 <div class="flex items-center gap-2 text-sm">
 	<a 
-		href={isThaiPage ? currentPath.replace('/th', '') || '/' : currentPath}
-		class={`px-2 py-1 rounded transition-colors ${!isThaiPage ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'}`}
+		href={thaiUrl}
+		class={`px-2 py-1 rounded transition-colors ${isThaiPage && !isEnglishPage ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'}`}
 	>
-		EN
+		ไทย
 	</a>
 	<span class="text-gray-400 dark:text-gray-600">|</span>
 	<a 
-		href={isThaiPage ? currentPath : `/th${currentPath === '/' ? '' : currentPath}`}
-		class={`px-2 py-1 rounded transition-colors ${isThaiPage ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'}`}
+		href={englishUrl}
+		class={`px-2 py-1 rounded transition-colors ${isEnglishPage ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'}`}
 	>
-		ไทย
+		EN
 	</a>
 </div>
