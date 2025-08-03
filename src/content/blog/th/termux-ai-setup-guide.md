@@ -119,15 +119,21 @@ gemini --debug
 
 **ตัวเลือกที่ 1: Login with Google Account**
 - เลือกตัวเลือกที่ 1 สำหรับ Google Account sign-in
-- Gemini จะแสดง URL ประมาณนี้: `https://accounts.google.com/oauth/authorize?client_id=...`
+- Gemini จะแสดง URL ยืนยันตัวตนที่ยาว
 - **คัดลอก URL นี้แล้วเปิดในเบราว์เซอร์ Android**
 - ทำ OAuth flow ให้เสร็จแล้วกลับมาที่ terminal
 - เหมาะสำหรับการใช้งานส่วนตัวและเริ่มต้นใช้งานแบบง่าย
 
 **ตัวเลือกที่ 2: Use Gemini API Key**
 - ไปขอ API key จาก [Google AI Studio](https://makersuite.google.com/app/apikey)
-- ตั้งเป็น environment variable: `export GEMINI_API_KEY=your_key_here`
-- เพิ่มเข้า `.bashrc` เพื่อความคงทน: `echo 'export GEMINI_API_KEY=your_key_here' >> ~/.bashrc`
+- ตั้งเป็น environment variable:
+```bash
+export GEMINI_API_KEY=your_key_here
+```
+- เพิ่มเข้า `.bashrc` เพื่อความคงทน:
+```bash
+echo 'export GEMINI_API_KEY=your_key_here' >> ~/.bashrc
+```
 - เหมาะสำหรับการทำ automation และ scripting
 
 **ตัวเลือกที่ 3: Vertex AI**

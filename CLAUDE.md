@@ -97,6 +97,8 @@ src/
   - Meta info: `text-lg sm:text-xl` (increased from `text-base`)
 - **Responsive Design**: Mobile-first approach with larger touch targets
 - **Thai Language**: Google Fonts Mitr optimized for Thai rendering
+- **Enhanced Code Blocks**: Mobile-responsive styling with borders, padding, and horizontal scrolling
+- **Proper Command Formatting**: Shell commands converted to scrollable code blocks instead of inline code
 
 ## What Matters for Claude Code
 When the context exceeds, it is important for Claude Code to have access to the following information to continue work:

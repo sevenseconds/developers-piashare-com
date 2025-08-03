@@ -119,15 +119,21 @@ gemini --debug
 
 **Option 1: Login with Google Account**
 - Choose option 1 for Google Account sign-in
-- Gemini will display a URL like: `https://accounts.google.com/oauth/authorize?client_id=...`
+- Gemini will display a long authentication URL
 - **Copy this URL and open it in your Android browser**
 - Complete the OAuth flow and return to the terminal
 - Perfect for personal use and getting started quickly
 
 **Option 2: Use Gemini API Key**
 - Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
-- Set it as an environment variable: `export GEMINI_API_KEY=your_key_here`
-- Add it to your `.bashrc` for persistence: `echo 'export GEMINI_API_KEY=your_key_here' >> ~/.bashrc`
+- Set it as an environment variable:
+```bash
+export GEMINI_API_KEY=your_key_here
+```
+- Add it to your `.bashrc` for persistence:
+```bash
+echo 'export GEMINI_API_KEY=your_key_here' >> ~/.bashrc
+```
 - Good for automation and scripting
 
 **Option 3: Vertex AI**

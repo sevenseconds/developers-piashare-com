@@ -64,6 +64,8 @@ This project is a modern, multilingual micro-blogging platform for PiaShare deve
     - [x] Remove language flags from individual post headers
     - [x] Add table of contents to tutorial content
     - [x] Fix header spacing issues with post titles
+    - [x] Enhance code block styling for better mobile responsiveness
+    - [x] Convert inline shell commands to proper code blocks for scrollability
 
 ## Current State
 
@@ -79,6 +81,7 @@ This project is a modern, multilingual micro-blogging platform for PiaShare deve
 - **Content Structure:** Professional blog layout with author, dates, tags
 - **User Experience:** Content-focused design with Thai-prioritized language switching
 - **Comprehensive Tutorials:** Complete setup guides with table of contents
+- **Mobile Code Blocks:** Enhanced code formatting with proper scrollability and styling
 
 ## Project Structure
 
@@ -151,3 +154,5 @@ src/
 - **Conditional Thumbnails:** Thumbnails hidden on homepage but shown in individual posts
 - **Header Spacing:** Proper spacing added to prevent title overlap with controls
 - **Professional Tutorials:** Comprehensive guides with table of contents and accurate technical information
+- **Enhanced Code Blocks:** Mobile-responsive code styling with borders, padding, and scrollability
+- **Proper Command Formatting:** Shell commands converted from inline to scrollable code blocks
