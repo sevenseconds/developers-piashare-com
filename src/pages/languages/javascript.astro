@@ -1,0 +1,139 @@
+---
+import MicroBlogLayout from '../../layouts/MicroBlogLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts
+const allPosts = await getCollection('blog');
+
+// Filter Thai JavaScript tutorials
+const jsPosts = allPosts.filter(post => 
+  post.data.lang === 'th' && 
+  post.data.tags?.some(tag => ['JavaScript', 'JS', 'React', 'Vue', 'Angular', 'Node.js', 'Modern Web'].includes(tag))
+);
+
+// Sort by date (newest first)
+const sortedPosts = jsPosts.sort((a, b) => 
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<MicroBlogLayout title="JavaScript Tutorials - PiaShare นักพัฒนา">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex items-center mb-4">
+        <div class="w-16 h-16 bg-yellow-400 rounded-xl flex items-center justify-center mr-4">
+          <span class="text-black font-bold text-2xl">JS</span>
+        </div>
+        <div>
+          <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white">JavaScript</h1>
+          <p class="text-lg text-gray-600 dark:text-gray-400">เรียนรู้ JavaScript และ Web Development</p>
+        </div>
+      </div>
+      
+      <!-- Language features -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-800">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Dynamic</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Flexible typing</p>
+        </div>
+        <div class="bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-800">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Web Native</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Browser built-in</p>
+        </div>
+        <div class="bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-800">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Full Stack</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Frontend + Backend</p>
+        </div>
+        <div class="bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-800">
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Rich Ecosystem</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">NPM packages</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tutorials -->
+    {sortedPosts.length > 0 ? (
+      <div class="space-y-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">บทเรียน JavaScript ({sortedPosts.length} บทเรียน)</h2>
+        {sortedPosts.map((post) => (
+          <a href={`/posts/${post.id.replace('th/', '')}`} class="block bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 hover:border-yellow-400 dark:hover:border-yellow-400 transition-all duration-200 group">
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-yellow-600 mb-2">
+                  {post.data.title}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                  {post.data.subtitle || post.data.description}
+                </p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 space-x-4">
+                    <span>{post.data.author}</span>
+                    <span>{post.data.readTime}</span>
+                    <span>{post.data.date.toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    {post.data.tags?.slice(0, 3).map((tag) => (
+                      <span class="text-xs bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-12 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800">
+        <div class="w-20 h-20 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center mx-auto mb-4">
+          <span class="text-yellow-600 dark:text-yellow-400 text-2xl">📚</span>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">บทเรียน JavaScript กำลังจะมา</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">เราจะอัพเดทบทเรียน JavaScript ในเร็วๆ นี้</p>
+        <a href="/tutorials" class="inline-flex items-center text-yellow-600 dark:text-yellow-400 hover:text-yellow-700 dark:hover:text-yellow-300">
+          ← กลับไปดูบทเรียนอื่น
+        </a>
+      </div>
+    )}
+
+    <!-- Related Languages -->
+    <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">ภาษาที่เกี่ยวข้อง</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="/languages/typescript" class="group bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-800 hover:border-blue-600 transition-all duration-200">
+          <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mb-2">
+            <span class="text-white font-bold text-sm">TS</span>
+          </div>
+          <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600">TypeScript</h4>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Type Safety</p>
+        </a>
+
+        <a href="/languages/python" class="group bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-800 hover:border-blue-500 transition-all duration-200">
+          <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center mb-2">
+            <span class="text-white font-bold text-sm">PY</span>
+          </div>
+          <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600">Python</h4>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Data & AI</p>
+        </a>
+
+        <a href="/languages/rust" class="group bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-800 hover:border-orange-600 transition-all duration-200">
+          <div class="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center mb-2">
+            <span class="text-white font-bold text-sm">RS</span>
+          </div>
+          <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-orange-700">Rust</h4>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Systems</p>
+        </a>
+
+        <a href="/languages/go" class="group bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-800 hover:border-cyan-500 transition-all duration-200">
+          <div class="w-10 h-10 bg-cyan-500 rounded-lg flex items-center justify-center mb-2">
+            <span class="text-white font-bold text-sm">GO</span>
+          </div>
+          <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-cyan-600">Go</h4>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Backend</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</MicroBlogLayout>
