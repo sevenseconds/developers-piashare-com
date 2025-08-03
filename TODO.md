@@ -6,6 +6,10 @@
 This project is a modern, multilingual micro-blogging platform for PiaShare developers, featuring a clean list-tile design similar to X.com/Twitter.com, focusing on tech tutorials and updates.
 
 **Key Achievements:**
+- **Twitter/X-like Layout:** Three-column responsive design with intelligent sidebar management.
+- **Responsive Navigation:** Left sidebar adapts from full text to icons based on available space.
+- **Mobile Bottom Navigation:** Fixed bottom navigation bar for mobile devices with icons and labels.
+- **Right Sidebar Always Visible:** Programming languages and recent posts shown on all non-mobile screens.
 - **Modern List Tile Design:** Clean card-based layout optimized for content consumption.
 - **Multilingual Support:** Full i18n with Thai as default language and English support using Astro's native routing.
 - **Smart Theme System:** Dark/light theme toggle with system preference detection and persistence.
@@ -67,14 +71,29 @@ This project is a modern, multilingual micro-blogging platform for PiaShare deve
     - [x] Enhance code block styling for better mobile responsiveness
     - [x] Convert inline shell commands to proper code blocks for scrollability
 
+- [x] **Twitter/X-like Layout Implementation:**
+    - [x] Create left sidebar component with navigation (Home, Tutorials, Tips)
+    - [x] Implement responsive left sidebar (full text on xl+, icons only on lg-xl)
+    - [x] Create right sidebar with "Recents" and programming languages sections
+    - [x] Add programming languages showcase (JavaScript, Python, TypeScript, Rust, Go)
+    - [x] Implement mobile bottom navigation bar with icons and labels
+    - [x] Update main layout to three-column responsive design
+    - [x] Configure proper breakpoints (mobile <lg, medium lg-xl, large xl+)
+    - [x] Ensure right sidebar always visible on non-mobile screens
+    - [x] Update theme colors for Twitter/X-like contrast (bg-white/bg-black)
+
 ## Current State
 
-✅ **Project is Feature Complete with Advanced Content Management**
+✅ **Project is Feature Complete with Twitter/X-like Layout and Advanced Content Management**
 
+- **Twitter/X-like Layout:** Three-column responsive design with intelligent sidebar behavior
+- **Responsive Navigation:** Left sidebar shows full text when space allows, icons when limited
+- **Mobile Experience:** Bottom navigation bar with proper spacing and touch targets
+- **Right Sidebar:** Always visible programming languages and recent posts on non-mobile
 - **Core Functionality:** All major features implemented and working
 - **Responsive Design:** Optimized for all screen sizes with proper header spacing
 - **Multilingual:** Full Thai/English support with Thai as default language
-- **Theme System:** Smart dark/light toggle with persistence
+- **Theme System:** Smart dark/light toggle with persistence and Twitter/X-like contrast
 - **Typography:** Excellent Thai language rendering with Mitr font
 - **Content Collections:** Markdown-based content management with schema validation
 - **Dynamic Routing:** Automated page generation from markdown content
@@ -90,9 +109,12 @@ src/
 ├── components/
 │   ├── Post.astro              ✅ Feature-complete blog post component with conditional thumbnails
 │   ├── ThemeToggle.astro       ✅ Advanced theme switching with persistence
-│   └── LanguageSwitcher.astro  ✅ i18n navigation component (Thai prioritized)
+│   ├── LanguageSwitcher.astro  ✅ i18n navigation component (Thai prioritized)
+│   ├── LeftSidebar.astro       ✅ Responsive left navigation (full text/icons, Twitter/X-like)
+│   ├── RightSidebar.astro      ✅ Right sidebar with recents and programming languages
+│   └── MobileBottomNav.astro   ✅ Mobile bottom navigation bar with icons and labels
 ├── layouts/
-│   └── MicroBlogLayout.astro   ✅ Main layout with theme and i18n integrations
+│   └── MicroBlogLayout.astro   ✅ Three-column Twitter/X-like layout with responsive sidebars
 ├── content/
 │   ├── config.ts               ✅ Content collections configuration with schema validation
 │   └── blog/
@@ -119,9 +141,9 @@ src/
 │       └── posts/
 │           └── [...slug].astro ✅ Dynamic English post pages with proper spacing
 ├── astro.config.mjs            ✅ Configured with native i18n (Thai default)
-├── unocss.config.mjs           ✅ Configured with Mitr font support
-├── CLAUDE.md                   ✅ Updated project documentation
-└── TODO.md                     ✅ Complete task tracking
+├── unocss.config.mjs           ✅ Configured with Mitr font support and line-clamp utilities
+├── CLAUDE.md                   ✅ Updated project documentation with Twitter/X layout info
+└── TODO.md                     ✅ Complete task tracking with layout implementation details
 ```
 
 ## Future Enhancements (Optional)
@@ -149,6 +171,11 @@ src/
 - **Language Switching:** Intelligent URL mapping between Thai and English content
 - **Theme Persistence:** Uses localStorage with smart fallback to system preferences
 - **Mobile-First:** Responsive design prioritizes mobile experience with large fonts
+- **Twitter/X-like Layout:** Three-column responsive design with intelligent sidebar management
+- **Responsive Breakpoints:** Smart layout adaptation (mobile <lg, medium lg-xl, large xl+)
+- **Sidebar Intelligence:** Left sidebar shows full text when space allows, icons when limited
+- **Mobile Navigation:** Bottom navigation bar for mobile devices with proper touch targets
+- **Programming Languages:** Right sidebar showcases tech stack (JS, Python, TypeScript, Rust, Go)
 - **Content Hierarchy:** Visual design emphasizes content over navigation elements
 - **Typography Optimization:** Significantly increased font sizes for mobile and high DPI screens
 - **Conditional Thumbnails:** Thumbnails hidden on homepage but shown in individual posts

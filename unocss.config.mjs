@@ -13,4 +13,7 @@ export default defineConfig({
       'mitr': ['Mitr', 'sans-serif'],
     },
   },
+  shortcuts: {
+    'line-clamp-2': 'overflow-hidden text-ellipsis [-webkit-line-clamp:2] [-webkit-box-orient:vertical] [display:-webkit-box]',
+  },
 })

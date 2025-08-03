@@ -5,7 +5,10 @@ This project is a modern, multilingual micro-blogging platform for PiaShare deve
 
 ## Key Features
 - **Internationalization (i18n)**: Full support for Thai and English with routes (`/` and `/th/` for Thai, `/en/` for English)
-- **Modern List Tile Design**: Card-based layout with optimized mobile responsiveness
+- **Twitter/X-like Layout**: Three-column responsive design with left navigation, main content, and right sidebar
+- **Responsive Navigation**: Left sidebar adapts from full text to icons based on screen space availability
+- **Mobile Bottom Navigation**: Fixed bottom navigation bar on mobile devices with icons and labels
+- **Right Sidebar**: Always visible on desktop/tablet with recent posts and programming languages
 - **Dark/Light Theme**: Smart theme toggle with system preference detection and manual override
 - **Thai Typography**: Google Fonts Mitr for excellent Thai language rendering with large, mobile-friendly fonts
 - **Content-First Layout**: Subtle meta information that doesn't distract from the main content
@@ -28,9 +31,12 @@ src/
 ├── components/
 │   ├── Post.astro           # Main blog post component with conditional thumbnails
 │   ├── ThemeToggle.astro    # Dark/light theme switcher with persistence
-│   └── LanguageSwitcher.astro # Thai/English language toggle (Thai first)
+│   ├── LanguageSwitcher.astro # Thai/English language toggle (Thai first)
+│   ├── LeftSidebar.astro    # Responsive left navigation (full text/icons only)
+│   ├── RightSidebar.astro   # Right sidebar with recents and programming languages
+│   └── MobileBottomNav.astro # Mobile bottom navigation bar
 ├── layouts/
-│   └── MicroBlogLayout.astro # Main layout with theme and i18n support
+│   └── MicroBlogLayout.astro # Main layout with Twitter/X-like three-column structure
 ├── content/
 │   ├── config.ts            # Content collections configuration
 │   └── blog/
@@ -70,10 +76,20 @@ src/
 - **Content Hierarchy**: Title → Meta → Subtitle → Tags → Subtle "Read more" link
 - **Conditional Display**: Thumbnails hidden on homepage (`showThumbnail={false}`), shown in individual posts
 
+### Twitter/X-like Layout System
+- **Three-Column Design**: Left navigation, main content, right sidebar
+- **Responsive Breakpoints**:
+  - **Mobile (<lg)**: Hidden sidebars, bottom navigation, full-width content
+  - **Medium (lg-xl)**: Icon-only left sidebar (80px), visible right sidebar (320px)
+  - **Large (xl+)**: Full left sidebar with text (256px), visible right sidebar (320px)
+- **Left Navigation**: Home, Tutorials, Tips with responsive icon/text display
+- **Right Sidebar**: Recent posts section and programming languages (JS, Python, TypeScript, Rust, Go)
+- **Mobile Navigation**: Fixed bottom bar with icon and text labels
+
 ### Theme System
 - **Persistence**: LocalStorage with system preference fallback
 - **Dynamic Updates**: Listens for system theme changes when no manual preference set
-- **Colors**: Light theme uses `bg-gray-50`, dark theme uses `bg-gray-900`
+- **Colors**: Light theme uses `bg-white`, dark theme uses `bg-black` for Twitter/X-like contrast
 
 ### Internationalization
 - **Astro Native i18n**: File-based routing without custom translation utilities
@@ -102,7 +118,11 @@ src/
 
 ## What Matters for Claude Code
 When the context exceeds, it is important for Claude Code to have access to the following information to continue work:
-- The project description and current feature set
+- The project description and current feature set including Twitter/X-like layout
+- The three-column responsive layout system with breakpoint logic
+- Left sidebar component with responsive text/icon display (`LeftSidebar.astro`)
+- Right sidebar component with recents and programming languages (`RightSidebar.astro`)
+- Mobile bottom navigation component (`MobileBottomNav.astro`)
 - The i18n setup with Thai as default language and content collections structure
 - The Post component interface and responsive design patterns with conditional thumbnails
 - Theme toggle implementation and state management
@@ -116,6 +136,7 @@ When the context exceeds, it is important for Claude Code to have access to the 
 - Individual post page structure with proper spacing for header controls
 - Conditional thumbnail display logic (`showThumbnail` prop usage)
 - Content collections configuration in `src/content.config.ts`
+- Responsive layout margins and breakpoint system for three-column layout
 
 ## Memories
 - Check TODO.md for the next tasks or current status
