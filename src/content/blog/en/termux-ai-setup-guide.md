@@ -38,7 +38,6 @@ If you're a developer who wants to harness the power of AI tools directly on you
    - [Termux Permissions](#termux-permissions)
    - [Gemini Authentication Fails](#gemini-authentication-fails)
    - [Claude Code Connection Issues](#claude-code-connection-issues)
-8. [What's Next?](#whats-next)
 
 ## Why Install Termux from F-Droid?
 
@@ -277,16 +276,5 @@ gemini --debug
 # Check your internet connection and restart Claude Code
 claude
 ```
-
-## What's Next?
-
-You now have a powerful AI development environment right in your pocket! Here are some ideas to explore:
-
-- **Mobile-first development** - Build and test apps directly on your device
-- **AI-assisted coding** - Use Claude Code for code reviews and suggestions  
-- **Research and learning** - Leverage Gemini for quick explanations and tutorials
-- **Automation scripts** - Create Termux scripts that use AI for data processing
-
-The combination of Termux + AI tools opens up possibilities that desktop setups often can't match - like testing mobile-specific features or developing on-the-go.
 
 **Happy coding!** 🚀
