@@ -12,6 +12,12 @@ export default defineConfig({
       prefixDefaultLocale: false
     }
   },
+  markdown: {
+    syntaxHighlight: 'shiki',
+    shikiConfig: {
+      theme: 'catppuccin-frappe',
+    },
+  },
   integrations: [
     unocss({
       injectReset: true,
