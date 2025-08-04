@@ -1,7 +1,6 @@
 ---
 title: "การสร้าง Components ที่ตอบสนอง"
 subtitle: "เชี่ยวชาญศิลปะการสร้าง components ที่ทำงานได้อย่างสวยงามในทุกขนาดอุปกรณ์"
-author: "อเล็กซ์ คิม"
 date: 2025-08-03
 readTime: "7 นาที"
 tags: ["CSS", "Responsive Design", "Frontend"]

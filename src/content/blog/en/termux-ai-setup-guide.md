@@ -1,7 +1,6 @@
 ---
 title: "Complete Guide: Setting up Termux with AI Tools"
 subtitle: "Learn how to install Termux from F-Droid and set up Google Gemini CLI and Claude Code for AI development on Android"
-author: "Tech Team"
 date: 2025-08-03
 readTime: "12 min read"
 tags: ["Termux", "Android", "AI", "CLI", "Setup Guide"]

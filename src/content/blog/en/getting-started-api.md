@@ -1,7 +1,6 @@
 ---
 title: "Getting Started with the PiaShare API"
 subtitle: "Learn how to integrate PiaShare's powerful API into your applications with our comprehensive guide and examples."
-author: "Sarah Chen"
 date: 2025-08-03
 readTime: "5 min read"
 tags: ["API", "Tutorial", "Getting Started"]

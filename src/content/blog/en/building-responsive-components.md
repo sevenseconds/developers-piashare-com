@@ -1,7 +1,6 @@
 ---
 title: "Building Responsive Components"
 subtitle: "Master the art of creating components that work beautifully across all device sizes."
-author: "Alex Kim"
 date: 2025-08-03
 readTime: "7 min read"
 tags: ["CSS", "Responsive Design", "Frontend"]

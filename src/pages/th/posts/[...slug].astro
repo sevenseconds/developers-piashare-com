@@ -32,7 +32,6 @@ const { Content } = await render(post);
 			</h1>
 			
 			<div class="flex items-center gap-4 text-lg sm:text-xl text-gray-500 dark:text-gray-400 mb-6">
-				<span>{post.data.author}</span>
 				<span>{post.data.date.toLocaleDateString('th-TH', { 
 					year: 'numeric', 
 					month: 'short', 
@@ -76,8 +75,7 @@ const { Content } = await render(post);
 			<div class="prose prose-lg sm:prose-xl dark:prose-invert max-w-none
 				prose-headings:text-gray-900 dark:prose-headings:text-white
 				prose-p:text-lg prose-p:sm:text-xl prose-p:leading-relaxed
-				prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 prose-pre:overflow-x-auto prose-pre:text-sm prose-pre:p-4 prose-pre:rounded-lg prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-gray-700
-				prose-code:text-base prose-code:sm:text-lg prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:break-words">
+				code-snippet-fix">
 				<Content />
 			</div>
 		</div>
@@ -87,3 +85,42 @@ const { Content } = await render(post);
 		</div>
 	</article>
 </MicroBlogLayout>
+
+<style>
+.prose.code-snippet-fix pre {
+	background-color: #f3f4f6; /* bg-gray-100 */
+	color: #111827; /* text-gray-900 */
+	overflow-x: auto;
+	font-size: 0.875rem; /* text-sm */
+	padding: 1rem;
+	border-radius: 0.5rem;
+	border: 1px solid #e5e7eb; /* border-gray-200 */
+}
+
+.dark .prose.code-snippet-fix pre {
+	background-color: #1f2937; /* bg-gray-800 */
+	color: #f9fafb; /* text-gray-100 */
+	border-color: #374151; /* border-gray-700 */
+}
+
+.prose.code-snippet-fix code {
+	font-size: 1rem;
+	background-color: #f3f4f6;
+	color: #111827;
+	padding: 0.125rem 0.5rem;
+	border-radius: 0.25rem;
+	word-break: break-word;
+}
+
+.dark .prose.code-snippet-fix code {
+	background-color: #1f2937;
+	color: #f9fafb;
+}
+
+.prose.code-snippet-fix pre code {
+	background-color: transparent;
+	padding: 0;
+	border-radius: 0;
+	color: inherit;
+}
+</style>

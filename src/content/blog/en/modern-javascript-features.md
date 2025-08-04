@@ -1,7 +1,6 @@
 ---
 title: "Modern JavaScript Features You Should Know"
 subtitle: "Explore the latest JavaScript features that will improve your development workflow and code quality."
-author: "Maria Rodriguez"
 date: 2025-08-03
 readTime: "6 min read"
 tags: ["JavaScript", "ES2024", "Modern Web"]
