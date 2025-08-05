@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import unocss from '@unocss/astro';
+import rehypeSlug from 'rehype-slug';
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,6 +18,7 @@ export default defineConfig({
     shikiConfig: {
       theme: 'catppuccin-frappe',
     },
+    rehypePlugins: [rehypeSlug],
   },
   integrations: [
     unocss({

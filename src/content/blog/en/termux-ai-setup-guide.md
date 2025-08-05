@@ -13,32 +13,6 @@ lang: "en"
 
 If you're a developer who wants to harness the power of AI tools directly on your Android device, this guide is for you. We'll walk through installing Termux, Google Gemini CLI, and Claude Code - turning your Android phone into a powerful AI development environment.
 
-## Table of Contents
-
-1. [Why Install Termux from F-Droid?](#why-install-termux-from-f-droid)
-2. [Step 1: Installing Termux from F-Droid](#step-1-installing-termux-from-f-droid)
-   - [Download F-Droid](#download-f-droid)
-   - [Install Termux](#install-termux)
-3. [Step 2: Setting up Google Gemini CLI](#step-2-setting-up-google-gemini-cli)
-   - [Install Node.js and Gemini CLI](#install-nodejs-and-gemini-cli)
-   - [Gemini Authentication Process](#gemini-authentication-process)
-   - [Complete the Setup](#complete-the-setup)
-4. [Step 3: Installing Claude Code](#step-3-installing-claude-code)
-   - [Install Claude Code](#install-claude-code)
-   - [Authentication Options](#authentication-options)
-   - [Getting Started](#getting-started)
-   - [Basic Usage](#basic-usage)
-5. [Essential Termux Configuration](#essential-termux-configuration)
-   - [Storage Setup](#storage-setup)
-   - [Shell Environment Setup](#shell-environment-setup)
-6. [Usage Tips & Workflows](#usage-tips--workflows)
-   - [Quick AI Consultation](#quick-ai-consultation)
-   - [Development Workflow](#development-workflow)
-7. [Troubleshooting Common Issues](#troubleshooting-common-issues)
-   - [Termux Permissions](#termux-permissions)
-   - [Gemini Authentication Fails](#gemini-authentication-fails)
-   - [Claude Code Connection Issues](#claude-code-connection-issues)
-
 ## Why Install Termux from F-Droid?
 
 > **📋 Important Note: Why F-Droid is Required**

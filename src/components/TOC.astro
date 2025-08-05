@@ -1,0 +1,269 @@
+---
+import type { TOCItem } from '../utils/toc.js';
+
+export interface Props {
+  items: TOCItem[];
+}
+
+const { items } = Astro.props;
+---
+
+{items.length > 0 && (
+  <>
+    <!-- Mobile TOC Button (fixed on right edge) -->
+    <button 
+      id="mobile-toc-toggle"
+      class="fixed top-1/2 right-0 z-50 lg:hidden bg-blue-500 text-white p-3 rounded-l-md shadow-lg transform -translate-y-1/2 transition-all duration-300 hover:bg-blue-600"
+      aria-label="Toggle Table of Contents"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+
+    <!-- Mobile TOC Overlay -->
+    <div 
+      id="mobile-toc-overlay" 
+      class="fixed inset-0 bg-black/50 z-40 lg:hidden opacity-0 pointer-events-none transition-opacity duration-300"
+    ></div>
+
+    <!-- Mobile TOC Sidebar -->
+    <nav 
+      id="mobile-toc"
+      class="fixed top-0 right-0 h-full w-80 max-w-[80vw] bg-white dark:bg-gray-900 shadow-xl z-50 lg:hidden transform translate-x-full transition-transform duration-300 overflow-y-auto"
+    >
+      <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Table of Contents</h3>
+          <button 
+            id="mobile-toc-close"
+            class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            aria-label="Close Table of Contents"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <nav class="p-4 max-h-[calc(100vh-120px)] overflow-y-auto" id="mobile-toc-nav">
+        <ul class="space-y-2">
+          {items.map((item) => (
+            <li>
+              <a 
+                href={`#${item.slug}`}
+                class={`block py-2 px-3 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors toc-link ${
+                  item.depth === 2 ? 'font-medium text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-300 ml-4'
+                }`}
+                data-heading-id={item.slug}
+              >
+                {item.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </nav>
+
+    <!-- Desktop TOC Content (styled for right sidebar) -->
+    <div class="desktop-toc-content bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4 shadow-sm">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Table of Contents</h3>
+      <nav class="max-h-[calc(100vh-120px)] overflow-y-auto" id="desktop-toc-nav">
+        <ul class="space-y-2">
+          {items.map((item) => (
+            <li>
+              <a 
+                href={`#${item.slug}`}
+                class={`block py-1 px-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors toc-link ${
+                  item.depth === 2 ? 'font-medium text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-300 ml-3'
+                }`}
+                data-heading-id={item.slug}
+              >
+                {item.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </>
+)}
+
+<script is:inline>
+  function initTOCComponent() {
+    // Mobile TOC toggle functionality
+    const toggleButton = document.getElementById('mobile-toc-toggle');
+    const closeButton = document.getElementById('mobile-toc-close');
+    const tocSidebar = document.getElementById('mobile-toc');
+    const overlay = document.getElementById('mobile-toc-overlay');
+
+    function openTOC() {
+      if (tocSidebar && overlay) {
+        tocSidebar.classList.remove('translate-x-full');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeTOC() {
+      if (tocSidebar && overlay) {
+        tocSidebar.classList.add('translate-x-full');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (toggleButton) {
+      toggleButton.addEventListener('click', openTOC);
+    }
+    if (closeButton) {
+      closeButton.addEventListener('click', closeTOC);
+    }
+    if (overlay) {
+      overlay.addEventListener('click', closeTOC);
+    }
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeTOC();
+      }
+    });
+
+    // Active section highlighting with improved scroll sync
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headings = Array.from(document.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]'))
+      .sort((a, b) => a.offsetTop - b.offsetTop);
+    const desktopTocNav = document.getElementById('desktop-toc-nav');
+    const mobileTocNav = document.getElementById('mobile-toc-nav');
+
+    function scrollTocToActiveItem(activeLink) {
+      // Function to scroll TOC container to show active item
+      function scrollContainer(container, activeElement) {
+        if (!container || !activeElement) return;
+        
+        const containerRect = container.getBoundingClientRect();
+        const activeRect = activeElement.getBoundingClientRect();
+        
+        // Check if active item is visible in container
+        const isVisible = activeRect.top >= containerRect.top && 
+                         activeRect.bottom <= containerRect.bottom;
+        
+        if (!isVisible) {
+          // Calculate scroll position to center the active item
+          const containerCenter = container.offsetHeight / 2;
+          const activeTop = activeElement.offsetTop - container.offsetTop;
+          const scrollTo = activeTop - containerCenter + (activeElement.offsetHeight / 2);
+          
+          container.scrollTo({
+            top: Math.max(0, scrollTo),
+            behavior: 'smooth'
+          });
+        }
+      }
+
+      // Scroll both desktop and mobile TOC containers
+      if (desktopTocNav) {
+        const desktopActiveLink = desktopTocNav.querySelector(`.toc-link[data-heading-id="${activeLink.dataset.headingId}"]`);
+        scrollContainer(desktopTocNav, desktopActiveLink);
+      }
+      
+      if (mobileTocNav) {
+        const mobileActiveLink = mobileTocNav.querySelector(`.toc-link[data-heading-id="${activeLink.dataset.headingId}"]`);
+        scrollContainer(mobileTocNav, mobileActiveLink);
+      }
+    }
+
+    function updateActiveSection() {
+      if (headings.length === 0) return;
+
+      const scrollPosition = window.scrollY + 150; // Better offset for mobile and desktop
+      let activeHeading = headings[0]; // Default to first heading
+
+      // Find the current active heading based on scroll position
+      for (let i = 0; i < headings.length; i++) {
+        const heading = headings[i];
+        const nextHeading = headings[i + 1];
+        
+        if (nextHeading) {
+          // If we're between this heading and the next one
+          if (scrollPosition >= heading.offsetTop && scrollPosition < nextHeading.offsetTop) {
+            activeHeading = heading;
+            break;
+          }
+        } else {
+          // Last heading
+          if (scrollPosition >= heading.offsetTop) {
+            activeHeading = heading;
+            break;
+          }
+        }
+      }
+
+      // Remove active class from all links
+      tocLinks.forEach(link => {
+        link.classList.remove('bg-blue-100', 'dark:bg-blue-900', 'text-blue-700', 'dark:text-blue-300');
+      });
+
+      // Add active class to current section and scroll TOC to show it
+      if (activeHeading && activeHeading.id) {
+        const activeLinks = document.querySelectorAll(`.toc-link[data-heading-id="${activeHeading.id}"]`);
+        activeLinks.forEach(link => {
+          link.classList.add('bg-blue-100', 'dark:bg-blue-900', 'text-blue-700', 'dark:text-blue-300');
+        });
+        
+        // Scroll TOC to show active item
+        if (activeLinks.length > 0) {
+          scrollTocToActiveItem(activeLinks[0]);
+        }
+      }
+    }
+
+    // Smooth scrolling for TOC links
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href')?.substring(1);
+        const targetElement = document.getElementById(targetId || '');
+        
+        if (targetElement) {
+          const headerOffset = 100; // Account for sticky header and mobile considerations
+          const elementPosition = targetElement.offsetTop;
+          const offsetPosition = elementPosition - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile TOC after clicking
+          if (window.innerWidth < 1024) {
+            setTimeout(closeTOC, 300); // Small delay for better UX
+          }
+        }
+      });
+    });
+
+    // Throttled scroll handler for better performance
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      scrollTimeout = setTimeout(updateActiveSection, 10);
+    });
+
+    // Initial call
+    setTimeout(updateActiveSection, 100);
+  }
+
+  // Initialize immediately if DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTOCComponent);
+  } else {
+    initTOCComponent();
+  }
+
+  // Re-initialize on page navigation (for SPAs)
+  document.addEventListener('astro:page-load', initTOCComponent);
+</script>

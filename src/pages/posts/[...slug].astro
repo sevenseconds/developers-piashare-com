@@ -1,6 +1,7 @@
 ---
 import MicroBlogLayout from '../../layouts/MicroBlogLayout.astro';
 import { getCollection, getEntry, render } from 'astro:content';
+import { generateTOC } from '../../utils/toc.js';
 
 export async function getStaticPaths() {
   const blogPosts = await getCollection('blog', ({ data }) => {
@@ -18,10 +19,11 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+const toc = generateTOC(headings);
 ---
 
-<MicroBlogLayout title={post.data.title}>
+<MicroBlogLayout title={post.data.title} showTOC={toc.hasContent} tocItems={toc.items}>
 	<article class="max-w-4xl mx-auto">
 		<!-- Add spacing for header controls -->
 		<div class="h-16 sm:h-20"></div>
